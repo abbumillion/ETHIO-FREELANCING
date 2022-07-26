@@ -36,11 +36,10 @@ public class Job {
 	private Date endDate;
 	@Column(nullable = false, unique = false, length = 20)
 	private double budget;
-	@Column(nullable = false, unique = false, length = 20)
-	private boolean isApproved;
 	@OneToMany
 	private List<Skill> skill;
 	@OneToMany
 	private List<JobApplication> jobApplication;
-
+	@OneToOne
+	private Customer customer;
 }

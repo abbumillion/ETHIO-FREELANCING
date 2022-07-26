@@ -1,7 +1,8 @@
 package mngmnt.configuration;
 
-import mngmnt.model.RoleNames;
 import mngmnt.ServiceImp.CustomUserDetailsService;
+import mngmnt.exception.EthioFreelancingApplication;
+import mngmnt.helpers.ROLE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -41,13 +42,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 			.antMatchers("/console/**").permitAll()
-			.antMatchers("/", "/addNewUser").authenticated()
-			.antMatchers("/getAllUser/**", "/removeAll/**").hasAuthority(RoleNames.ADMIN.name())
-			.antMatchers("/removeAll/**", "/addNewUser/**", "/save/**", "/register/**", "/delete/**", "/page/**", "/next/**", "/search/**").hasAuthority(RoleNames.ADMIN.name())
+			.antMatchers("/jobs", "/addNewUser").authenticated()
+			.antMatchers("/getAllUser/**", "/removeAll/**").hasAuthority(ROLE.ADMIN.name())
+			.antMatchers("/removeAll/**", "/addNewUser/**", "/save/**", "/register/**", "/delete/**", "/page/**", "/next/**", "/search/**").hasAuthority(ROLE.ADMIN.name())
 			.anyRequest().permitAll()
 			.and()
 				.formLogin().loginPage("/login")
-				.defaultSuccessUrl("/")
+				.defaultSuccessUrl("/home")
 				.usernameParameter("username")
 				.passwordParameter("password")
 			.and()
@@ -69,7 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) throws EthioFreelancingApplication {
 		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
 	}
 

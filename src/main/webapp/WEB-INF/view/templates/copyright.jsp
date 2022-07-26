@@ -1,3 +1,3 @@
 <div class="footer">
-    Copyright &copy; 2018
+    Ethio-Freelancing Application Copyright All right Reserved &copy; 2022
 </div>

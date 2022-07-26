@@ -12,9 +12,33 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/home").setViewName("home");
-		registry.addViewController("/").setViewName("home");
+		//landing page
+		registry.addViewController("/").setViewName("index");
+		//login page
 		registry.addViewController("/login").setViewName("login");
+		//home page
+		registry.addViewController("/home").setViewName("home");
+		//about page
+		registry.addViewController("/about").setViewName("about");
+		//contact us page
+		registry.addViewController("/contactus").setViewName("contactus");
+		//profile page
+		registry.addViewController("/profile").setViewName("profile");
+		//jobs page
+		registry.addViewController("/jobs").setViewName("jobs");
+		//job applications page
+		registry.addViewController("/jobapplications").setViewName("jobapplications");
+		// my jobs page
+		registry.addViewController("/myjobs").setViewName("myjobs");
+		//feedbacks page
+		registry.addViewController("/feedbacks").setViewName("feedbacks");
+		//sign up page
+		registry.addViewController("/signup").setViewName("create-user");
+		//logout page
+		registry.addViewController("/logout").setViewName("logout");
+		//post job
+		registry.addViewController("/jobform").setViewName("jobform");
+        //registry.addViewController("/login").setViewName("login");
 	}
 
 	@Override

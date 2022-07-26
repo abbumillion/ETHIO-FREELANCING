@@ -45,8 +45,13 @@
                                        data-eye>
                             </div>
 
-                            <div class="form-group no-margin">
-                                <button id="loginSubmit" type="submit" class="btn btn-primary btn-block">Login</button>
+                            <div class="form-group m-2">
+                                <button id="loginSubmit" type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            </div>
+
+                            <%-- login button--%>
+                            <div class="form-group m-2">
+                                <a href="/signup" >don't have account?</a>
                             </div>
 
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

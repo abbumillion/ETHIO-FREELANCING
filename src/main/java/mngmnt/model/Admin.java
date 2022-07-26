@@ -13,11 +13,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 public class Admin {
-	//user's id for primary key
+
+	/**************************************************************************************
+	 * Description : This is and admin bean.
+	 * Created Date: 22 jun, 2022
+	 * Version     : v1.0.0
+	 * Author      : Million Sharbe
+	 *************************************************************************************/
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long Id;
-	private int level;
 	@OneToOne
 	private User user;
 }

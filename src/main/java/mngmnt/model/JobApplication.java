@@ -21,6 +21,8 @@ public class JobApplication {
 	private Date applicationDate;
 	@Column(nullable = true, unique = false, length = 10)
 	private Boolean accepted;
+	@Column(nullable = true, unique = false, length = 100)
+	private String  coverLetter;
 	@ManyToOne
 	private Job job;
 

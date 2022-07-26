@@ -1,13 +1,9 @@
 package mngmnt.ServiceImp;
-
-
-
 import mngmnt.model.Admin;
 import mngmnt.repository.AdminRepo;
 import mngmnt.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -35,9 +31,9 @@ public class AdminServiceImp implements AdminService {
 		return adminRepo.findAll();
 	}
 	@Override
-	public Admin update_admin(long id)
+	public Admin update_admin(long id,Admin admin)
 	{
-		return null;
+		return adminRepo.save(admin);
 	}
 	@Override
 	public void delete_admin(long id)
@@ -49,4 +45,5 @@ public class AdminServiceImp implements AdminService {
 	{
 		adminRepo.deleteAll();
 	}
+
 }

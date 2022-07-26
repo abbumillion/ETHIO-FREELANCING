@@ -12,9 +12,6 @@ public class UserAdapter implements UserDetails {
 
     private static final long serialVersionUID = -1360188483928178893L;
     private User user;
-
-
-
     public UserAdapter(User user) {
         this.user = user;
     }

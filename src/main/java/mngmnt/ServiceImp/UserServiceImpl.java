@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     public Page<User> searchByTerm(String name, Pageable pageable) {
         return userRepository.searchByTerm(name, pageable);
     }
-    
+
     @Override
     public Boolean removeAll() {
         userRepository.deleteAll();
