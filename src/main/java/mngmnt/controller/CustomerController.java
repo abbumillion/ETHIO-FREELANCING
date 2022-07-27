@@ -1,25 +1,30 @@
 package mngmnt.controller;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import mngmnt.ServiceImp.CustomerServiceImp;
 import mngmnt.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 
 @RestController
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class CustomerController {
     private CustomerServiceImp customerServiceImp;
-    @Autowired
-    public CustomerController(CustomerServiceImp customerServiceImp)
+    @RequestMapping("/customer/customers")
+    public ModelAndView getAllCustomers()
     {
-        this.customerServiceImp = customerServiceImp;
-    }
-    @RequestMapping("/api/customers")
-    public List<Customer> getAllCustomers()
-    {
-        return customerServiceImp.all_customer();
+        ModelAndView modelAndView =
+                new ModelAndView("customers");
+        modelAndView.addObject(customerServiceImp.all_customer());
+        return modelAndView;
     }
     @RequestMapping("/api/customer")
     public Customer getAdmin(long id)

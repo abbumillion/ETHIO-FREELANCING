@@ -14,6 +14,13 @@ import java.util.List;
 @Builder
 @Entity
 public class Freelancer {
+
+	/**************************************************************************************
+	 * Description : This is a freelancer bean.
+	 * Created Date: 22 jun, 2022
+	 * Version     : v1.0.0
+	 * Author      : Million Sharbe
+	 *************************************************************************************/
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long Id;
@@ -25,6 +32,4 @@ public class Freelancer {
 	private User user;
 	@OneToMany
 	private List<Feedback> feedback;
-	@Column(nullable = true, unique = false, length = 2)
-	private int rating;
 }

@@ -16,14 +16,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    List<User> findByFirstNameIgnoreCaseContaining(String firstName);
+    User findByPhoneNumber(String phoneNumber);
 
-    List<User> findByLastNameIgnoreCaseContaining(String lastName);
+    List<User> findByPhoneNumberIgnoreCaseContaining(String phoneNumber);
+
+    List<User> findByFullNameIgnoreCaseContaining(String firstName);
 
     List<User> findByEmailIgnoreCaseContaining(String email);
 
     @Query("SELECT t FROM User t WHERE " +
-            "LOWER(t.lastName) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
-            "LOWER(t.firstName) LIKE LOWER(CONCAT('%',:searchTerm, '%'))")
+//            "LOWER(t.lastName) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
+            "LOWER(t.fullName) LIKE LOWER(CONCAT('%',:searchTerm, '%'))")
     Page<User> searchByTerm(@Param("searchTerm") String searchTerm, Pageable pageable);
 }

@@ -28,9 +28,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/addNewUser">Freelancers</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/about">About</a>
-            </li>
         </ul>
         <div >
             <a style="text-align: right; color: #fff;" href="<c:url value="logout" />">Logout <i class="fa fa-sign-out fa-lg"></i>

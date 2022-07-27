@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SignUpDTO {
 
-    private String firstName;
+    private String fullName;
 
-    private String lastName;
+    private String phoneNumber;
 
     private String email;
 
@@ -22,7 +22,7 @@ public class SignUpDTO {
 
     private String confirmPassword;
 
-    private String roleName;
+    private String role;
 
-    private boolean isActive;
+    private boolean isActive = true;
 }

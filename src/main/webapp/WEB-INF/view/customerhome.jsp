@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Freelancer Home</title>
+    <title>Customer Home</title>
 </head>
 
 <body class="my-login-page">
@@ -12,7 +12,7 @@
         <div class="row justify-content-md-center">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="float-left">Freelancer Home</h4>
+                    <h4 class="float-left">List of Users</h4>
                     <ul class="float-right">
                         <li>
                             <form action="/searchBox" class="form-inline my-2 my-lg-0 ">

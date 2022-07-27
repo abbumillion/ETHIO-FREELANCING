@@ -20,7 +20,7 @@
                         </c:if>
                         <%-- job form --%>
                         <form action="/postjob" method="POST">
-                        <%--                            Title--%>
+                        <%--Title--%>
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <input id="title" type="text" class="form-control" name="title" required
@@ -29,9 +29,7 @@
                         <%--Job Category--%>
                             <div class="form-group">
                                 <label for="category">Job Category</label>
-
                                 <select name="category" class="custom-select form-control" required >
-
                                     <option value="WRITING">Freelancer</option>
                                     <option value="DESIGNER">Customer</option>
                                     <option value="WAITER">Freelancer</option>
@@ -49,13 +47,12 @@
 <%--                                    <option value="FREELANCER">Freelancer</option>--%>
 <%--                                    <option value="CUSTOMER">Customer</option>--%>
                                 </select>
-
 <%--                                <input id="lastName" type="text" class="form-control" name="lastName" required>--%>
                             </div>
                         <%--Type--%>
                             <div class="form-group">
                                 <label for="type">Type</label>
-                                <select name="type" class="custom-select form-control" required >
+                                <select name="type" multiple class="custom-select form-control" required >
                                     <option value="REMOTE">Remote</option>
                                     <option value="FULLTIME">Full Time</option>
                                     <option value="PERTIME">Per Time</option>

@@ -26,18 +26,18 @@
                     <%--sign up form starts--%>
                         <form action="/register" method="POST">
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input id="firstName" type="text" class="form-control" name="firstName" required
+                                <label for="fullName">First Name:</label>
+                                <input id="fullName" type="text" class="form-control" name="fullName" required
                                        autofocus>
                             </div>
-                    <%--last name--%>
+                    <%--phone number--%>
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input id="lastName" type="text" class="form-control" name="lastName" required>
+                                <label for="phoneNumber">Phone Number:</label>
+                                <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" required>
                             </div>
                     <%--email--%>
                             <div class="form-group">
-                                <label for="email">E-Mail Address</label>
+                                <label for="email">E-Mail Address:</label>
                                 <input id="email" type="email" class="form-control" name="email" required>
                             </div>
                     <%--password--%>
@@ -48,14 +48,13 @@
                             </div>
                     <%--confirm password--%>
                             <div class="form-group">
-                                <label for="password">Confirm Password</label>
-                                <input id="confirmpassword" type="password" class="form-control" name="password" required
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input id="confirmPassword" type="password" class="form-control" name="confirmPassword" required
                                        data-eye>
                             </div>
                     <%--role--%>
                             <div class="form-group">
-                                <select id="criteriaId" name="roleName" class="custom-select form-control" required>
-                                    <%--                                    <option value="ADMIN">Admin</option>--%>
+                                <select id="role" name="role" class="custom-select form-control" required>
                                     <option value="FREELANCER">Freelancer</option>
                                     <option value="CUSTOMER">Customer</option>
                                 </select>
@@ -73,7 +72,6 @@
                         </form>
                     </div>
                 </div>
-                <jsp:include page="templates/copyright.jsp"/>
             </div>
         </div>
     </div>

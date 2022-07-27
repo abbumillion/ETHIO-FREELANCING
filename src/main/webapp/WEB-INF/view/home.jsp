@@ -4,7 +4,6 @@
 <head>
     <title>List All Users</title>
 </head>
-
 <body class="my-login-page">
 <jsp:include page="templates/header.jsp"/>
 <section class="h-100">

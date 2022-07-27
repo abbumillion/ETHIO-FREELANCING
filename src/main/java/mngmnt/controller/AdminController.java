@@ -47,6 +47,11 @@ public class AdminController {
 	 *
 	 */
 
+
+
+
+
+
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Object> adminUpdate(@PathVariable Long id, @RequestBody AdminDTO adminDto) {
 
@@ -86,11 +91,11 @@ public class AdminController {
 	 * @GetMapping: Annotation for mapping HTTP GET requests onto specific handler methods.
 	 *
 	 */
-//
+
 //	@GetMapping(value = "/find/{userName}")
 //	public Admin findByUserName(@PathVariable String userName) {
 //		try {
-//			return adminService.get_admin(userName);
+//			return adminService.(userName);
 //		} catch (InvalidAdminException exception) {
 //			throw new InvalidAdminException("Admin with userName not found");
 //		}

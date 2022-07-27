@@ -1,6 +1,5 @@
 package mngmnt.controller;
 
-import mngmnt.ServiceImp.AdminServiceImp;
 import mngmnt.ServiceImp.CustomerServiceImp;
 import mngmnt.ServiceImp.FreelancerServiceImp;
 import mngmnt.constants.AppConstant;
@@ -8,7 +7,6 @@ import mngmnt.dto.Response;
 import mngmnt.dto.SearchDTO;
 import mngmnt.dto.SignUpDTO;
 import mngmnt.helpers.ROLE;
-import mngmnt.model.Admin;
 import mngmnt.model.Customer;
 import mngmnt.model.Freelancer;
 import mngmnt.model.User;
@@ -20,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,8 +33,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private AdminServiceImp adminServiceImp;
     @Autowired
     private FreelancerServiceImp freelancerServiceImp;
     @Autowired
@@ -65,7 +62,7 @@ public class UserController {
 
 
 
-    @GetMapping("/home")
+    @RequestMapping("/home")
     public ModelAndView home(@RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
                              @RequestParam(value = "size", defaultValue = "4", required = false) Integer size,
                              HttpServletRequest request, HttpServletResponse response) {
@@ -94,7 +91,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/searchBox")
+    @RequestMapping("/searchBox")
     public ModelAndView searchByTerm(@RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
                                      @RequestParam(value = "size", defaultValue = "4", required = false) Integer size,
                                      @RequestParam(value = "searchTerm", required = false) String searchTerm) {
@@ -107,14 +104,14 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/search")
+    @RequestMapping("/search")
     public ModelAndView search() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("search");
         return modelAndView;
     }
 
-    @PostMapping("/searchSubmit")
+    @RequestMapping("/searchSubmit")
     public ModelAndView searchSubmit(@ModelAttribute SearchDTO searchDto) {
         List<User> result = userService.searchBy(searchDto.getSearchKeyword(), searchDto.getCriteria());
         ModelAndView modelAndView = new ModelAndView();
@@ -124,33 +121,48 @@ public class UserController {
     }
 
 
-    @GetMapping("/addNewUser")
+    @RequestMapping("/profile")
     public ModelAndView addNewUser() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("create-user");
+        modelAndView.setViewName("profile");
         return modelAndView;
     }
 
     @ResponseBody
-    @PostMapping("/save")
+    @RequestMapping("/save")
     public Response update(@RequestBody User user) {
         User dbUser = userService.findById(user.getId());
-        dbUser.setFirstName(user.getFirstName());
-        dbUser.setLastName(user.getLastName());
+        dbUser.setFullName(user.getFullName());
+        dbUser.setEmail(user.getEmail());
+        dbUser.setPassword(user.getPassword());
+//        dbUser.set(user.getEmail());
         userService.saveUser(dbUser);
         return new Response(302, AppConstant.SUCCESS, "/");
     }
 
-    @PostMapping("/register")
-    public ModelAndView register(@ModelAttribute SignUpDTO signUpDTO) {
+    @RequestMapping("/register")
+    public ModelAndView register(@ModelAttribute SignUpDTO signUpDTO)
+    {
 
+        /**
+         * method for registering users to the system
+         *  param sign up data transfer object
+         *  author million sharbe
+         */
+//        System.out.println(signUpDTO.getFullName());
+//        System.out.println(signUpDTO.getEmail());
+//        System.out.println(signUpDTO.getPhoneNumber());
+//        System.out.println(signUpDTO.getRole());
+//        System.out.println(signUpDTO.getPassword());
+//        System.out.println(signUpDTO.getConfirmPassword());
+        ModelAndView modelAndView = new ModelAndView();
         String result = "redirect:/";
-        User dbUser = userService.findUserByEmail(signUpDTO.getEmail());
-        if (signUpDTO.getFirstName() == null || signUpDTO.getFirstName().trim().isEmpty()) {
+        try {
+        if (signUpDTO.getFullName() == null || signUpDTO.getFullName().trim().isEmpty()) {
             result = "redirect:/addNewUser?error=Enter valid fist name";
         }
-        else if (signUpDTO.getLastName() == null || signUpDTO.getLastName().trim().isEmpty()) {
-            result = "redirect:/addNewUser?error=Enter valid last name";
+        else if (signUpDTO.getPhoneNumber() == null || signUpDTO.getPhoneNumber().trim().isEmpty()) {
+            result = "redirect:/addNewUser?error=Enter valid phone number";
         }
         else if (signUpDTO.getEmail() == null || signUpDTO.getEmail().trim().isEmpty()) {
             result = "redirect:/addNewUser?error=Enter valid email";
@@ -164,86 +176,78 @@ public class UserController {
             result = "redirect:/addNewUser?error=Password mis-match";
         }
 
-        else if (StringUtils.isEmpty(signUpDTO.getRoleName())) {
+        else if (StringUtils.isEmpty(signUpDTO.getRole())) {
             result = "redirect:/addNewUser?error=Select a valid Role";
         }
-        if (dbUser == null) {
-            //
-            //
-            //
+        // if dbUser is null the register the user else throw exception
+            User dbUser = userService.findUserByEmail(signUpDTO.getEmail());
+            if (dbUser == null) {
             User user = User.builder()
-                    .firstName(signUpDTO.getFirstName())
-                    .lastName(signUpDTO.getLastName())
+                    .fullName(signUpDTO.getFullName())
+                    .phoneNumber(signUpDTO.getPhoneNumber())
                     .email(signUpDTO.getEmail())
-                    .isActive(signUpDTO.isActive())
+                    .isActive(true)
                     .password(signUpDTO.getPassword())
-                    .roleName(signUpDTO.getRoleName())
+                    .roleName(signUpDTO.getRole())
                     .build();
-
             userService.saveUser(user);
-            //
-            //
-            //
-            switch (signUpDTO.getRoleName())
+            switch (signUpDTO.getRole())
             {
-                case "ADMIN":
-                    Admin admin = Admin.builder()
-                            .user(user)
-                            .build();
-                    adminServiceImp.add_admin(admin);
-                    break;
                 case "FREELANCER":
                     Freelancer freelancer = Freelancer.builder()
                             .user(user)
                             .build();
                             freelancerServiceImp.add_freelancer(freelancer);
+                    modelAndView.setViewName("freelancerhome");
                     break;
                 case "CUSTOMER":
                     Customer customer = Customer.builder()
                             .user(user)
                             .build();
                             customerServiceImp.add_customer(customer);
+                    modelAndView.setViewName("customerhome");
                     break;
-                //
-                //
-                //
             }
-            result = "redirect:/home";
+            result = "redirect:/login";
         } else {
             result = "redirect:/addNewUser?error=User Already Exists!";
         }
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home");
+
+        }
+        catch (UsernameNotFoundException ex)
+        {
+        }
         return modelAndView;
     }
 
-    @GetMapping("/delete/{userId}")
-    public String delete(@PathVariable Long userId) {
+    @RequestMapping("/delete/{userId}")
+    public String delete(@PathVariable Long userId)
+    {
         userService.removeById(userId);
         return "redirect:/";
     }
 
     @ResponseBody
-    @GetMapping("/removeAll")
+    @RequestMapping("/removeAll")
     public Boolean removeAll() {
         return userService.removeAll();
     }
 
-    @GetMapping("/403")
+    @RequestMapping("/403")
     public ModelAndView accessDenied() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("403");
         return modelAndView;
     }
 
-    @GetMapping("/error")
-    public ModelAndView error() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("error");
-        return modelAndView;
-    }
+//    @RequestMapping("/error")
+//    public ModelAndView error() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("error");
+//        return modelAndView;
+//    }
 
-    @GetMapping("/about")
+    @RequestMapping("/about")
     public ModelAndView about() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("about");
