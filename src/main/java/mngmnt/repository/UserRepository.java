@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByPhoneNumberIgnoreCaseContaining(String phoneNumber);
 
-    List<User> findByFullNameIgnoreCaseContaining(String firstName);
+    List<User> findByFullNameIgnoreCaseContaining(String fullName);
 
     List<User> findByEmailIgnoreCaseContaining(String email);
 

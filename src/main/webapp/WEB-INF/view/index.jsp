@@ -27,7 +27,7 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/addNewUser">About</a>
+                <a class="nav-link" href="/about">About</a>
             </li>
         </ul>
         <div >
@@ -44,8 +44,6 @@
         //some contents in here
     </Section>
 </div>
-
-
 <jsp:include page="templates/copyright.jsp"/>
 </body>
 </html>

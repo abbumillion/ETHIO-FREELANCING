@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/style.css"/>
@@ -20,7 +19,7 @@
                 </div>
                 <div class="card fat">
                     <div class="card-body">
-                        <h4 class="card-title">Admin Console</h4>
+                        <h4 class="card-title">Sign In</h4>
                         <c:if test="${not empty param.error}">
                             <label style="color: red;"> <%= request.getParameter("error") %> </label>
                         </c:if>
@@ -53,16 +52,19 @@
                             <div class="form-group m-2">
                                 <a href="/signup" >don't have account?</a>
                             </div>
-
+                            <%-- forget password button--%>
+                            <div class="form-group m-2">
+                                <a href="/forgetpassword" >forget password?</a>
+                            </div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </div>
                 </div>
-                <jsp:include page="templates/copyright.jsp"/>
+<%--                <jsp:include page="templates/copyright.jsp"/>--%>
             </div>
         </div>
     </div>
 </section>
-<jsp:include page="templates/footer.jsp"/>
+<%--<jsp:include page="templates/footer.jsp"/>--%>
 </body>
 </html>

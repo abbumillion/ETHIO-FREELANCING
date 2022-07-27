@@ -19,43 +19,114 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableWebSecurity
 @AllArgsConstructor
 public class EFASecurityConfig extends WebSecurityConfigurerAdapter {
-
+    /**
+     * Author Million Sharbe
+     * Application security with spring security core
+     * Securing all rest end points with and  roles
+     * date july 13 , 2022
+     */
     public final UserServiceImpl userDetailsService;
     public final PasswordEncoder passwordEncoder;
+
+    /**
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /**
-         * Author Million Sharbe
-         * Securing all rest end points with and  roles
-         * date july 13 , 2022
-         */
+
         http
+                /**
+                 * permit all those end point for everyone
+                 */
                 .authorizeRequests()
-                .antMatchers("/console/**", "/", "/signup","/register", "/about").permitAll()
-                .antMatchers("/jobs", "/myjobs", "/jobapplication", "/home", "/postjob", "/profile","/contactus").authenticated()
-                .antMatchers("/customerhome/**", "/freelancers/**","/postjob/**").hasAuthority(ROLE.CUSTOMER.name())
-                .antMatchers("/freelancerhome/**", "/customers/**","/job/**").hasAuthority(ROLE.FREELANCER.name())
+                .antMatchers("/console/**", "/", "/signup","/register", "/about","/resources/**").permitAll()
+                /**
+                 * those end points should be authenticated
+                 * not accessable without login
+                 */
+                .antMatchers("/customer/home","customer/freelancers", "/customer/myjobs", "/customer/jobapplication","/customer/postjob",
+                        "/freelancer/home","/freelancer/skills","/freelancer/jobs","freelancer/jobapplications",
+                         "/profile","/contactus").authenticated()
+                /**
+                 * authority's  for all rest end points
+                 */
+
+                /**
+                 * customer authority's
+                 */
+//                .antMatchers("/customer/home/**","/customer/postjob").hasAuthority(ROLE.CUSTOMER.name())
+//                /**
+//                 * freelancer authority's
+//                 */
+//                .antMatchers("/freelancer/home/**","/freelancer/jobs/**").hasAuthority(ROLE.FREELANCER.name())
+//                /**
+//                 * admin authority's
+//                 */
                 .antMatchers("/getAllUser/**", "/removeAll/**").hasAuthority(ROLE.ADMIN.name())
                 .antMatchers("/getAllUser/**", "/removeAll/**").hasAuthority(ROLE.ADMIN.name())
                 .antMatchers("/removeAll/**", "/addNewUser/**", "/save/**", "/delete/**", "/page/**").hasAuthority(ROLE.ADMIN.name())
                 .anyRequest().permitAll()
                 .and()
+                /**
+                 * login page url
+                 */
                 .formLogin().loginPage("/login")
-                .defaultSuccessUrl("/home")
+                /**
+//                 * default success page for customer
+//                 */
+//                .defaultSuccessUrl("/customer/home")
+//                /**
+//                 * default success page for freelancer
+//                 */
+//                .defaultSuccessUrl("/freelancer/home")
+                /**
+                 * login parameter email
+                 */
                 .usernameParameter("email")
+                /**
+                 * login parameter password
+                 */
                 .passwordParameter("password")
                 .and()
+                /**
+                 * logout success page for all users
+                 */
                 .logout().logoutSuccessUrl("/login")
                 .and()
+                /**
+                 * access denied page
+                 */
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
-                .csrf().disable();
+                /**
+                 * cross site request forgery
+                 */
+                .csrf();
+        /**
+         * session management
+         */
         http.sessionManagement()
+                /**
+                 * max session time period
+                 */
                 .maximumSessions(1)
+                /**
+                 * max session time period prevents login
+                 */
                 .maxSessionsPreventsLogin(true)
+                /**
+                 * expired url
+                 */
                 .expiredUrl("/login?error=You are already logged in from somewhere");
     }
 
+    /**
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         /**
@@ -64,13 +135,14 @@ public class EFASecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
+    /**
+     *
+     * DaoAuthenticationProvider with userDetailsService and
+     *  Password Encoder
+     * @return
+     */
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
-        /**
-         * DaoAuthenticationProvider with userDetailsService and
-         * Password Encoder
-         */
-//        System.out.println(userDetailsService);
         DaoAuthenticationProvider daoAuthenticationProvider =
                 new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder.bCryptPasswordEncoder());
@@ -78,19 +150,21 @@ public class EFASecurityConfig extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
+    /**
+     * Servlet Session Bean
+     * @return
+     */
     @Bean
     public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
-        /**
-         * Servlet Session Bean
-         */
         return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
     }
-
+    /**
+     * exclude this end points from any access
+     * @param web
+     * @throws EthioFreelancingApplication
+     */
     @Override
     public void configure(WebSecurity web) throws EthioFreelancingApplication {
-        /**
-         * exclude this end points from any access
-         */
         web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 

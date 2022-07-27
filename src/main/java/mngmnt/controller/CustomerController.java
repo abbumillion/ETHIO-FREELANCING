@@ -11,6 +11,7 @@ import mngmnt.model.Freelancer;
 import mngmnt.model.Skill;
 import mngmnt.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -46,6 +47,12 @@ public class CustomerController {
     private JobServiceImp jobServiceImp;
     @Autowired
     private JobApplicationServiceImp jobApplicationServiceImp;
+
+    @Value("${max.result.per.page}")
+    private int maxResults;
+
+    @Value("${max.card.display.on.pagination.tray}")
+    private int maxPaginationTraySize;
 
     /**
      * method get all customers

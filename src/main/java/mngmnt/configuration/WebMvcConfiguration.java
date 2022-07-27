@@ -10,59 +10,50 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
+	/**
+	 *
+	 * @param registry
+	 * view registration methods
+	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		//-----------------landing page-----------------------------------------------------------------------------//
 		registry.addViewController("/").setViewName("index");
-		//-----------------login page--------------------------------------------------------------------------------//
 		registry.addViewController("/login").setViewName("login");
-		//-----------------freelancer home page----------------------------------------------------------------------//
 		registry.addViewController("/freelancer/home").setViewName("freelancerhome");
-		//-----------------customer home page------------------------------------------------------------------------//
 		registry.addViewController("/customer/home").setViewName("customerhome");
-		//-----------------about page--------------------------------------------------------------------------------//
 		registry.addViewController("/about").setViewName("about");
-		//-----------------contact us page---------------------------------------------------------------------------//
 		registry.addViewController("/contactus").setViewName("contactus");
-		//-----------------profile page------------------------------------------------------------------------------//
 		registry.addViewController("/profile").setViewName("profile");
-		//-----------------jobs page---------------------------------------------------------------------------------//
 		registry.addViewController("/jobs").setViewName("jobs");
-		//-----------------job page---------------------------------------------------------------------------------//
 		registry.addViewController("/job").setViewName("job");
-		//-----------------jobs page---------------------------------------------------------------------------------//
 		registry.addViewController("/freelancer").setViewName("freelancer");
 		registry.addViewController("/freelancer/myjobapplications").setViewName("myjobapplications");
-		//-----------------jobs page---------------------------------------------------------------------------------//
 		registry.addViewController("/customer").setViewName("customer");
-		//-----------------job applications page---------------------------------------------------------------------//
 		registry.addViewController("/customer/jobapplications").setViewName("jobapplications");
-		//---------------- my jobs page------------------------------------------------------------------------------//
 		registry.addViewController("/customer/myjobs").setViewName("myjobs");
-		//----------------feedbacks page-----------------------------------------------------------------------------//
 		registry.addViewController("/feedbacks").setViewName("feedbacks");
-		//---------------sign up page--------------------------------------------------------------------------------//
 		registry.addViewController("/signup").setViewName("create-user");
-		//----------------logout page--------------------------------------------------------------------------------//
 		registry.addViewController("/logout").setViewName("logout");
-		//----------------post job-----------------------------------------------------------------------------------//
 		registry.addViewController("/jobform").setViewName("jobform");
-		//----------------------------------------------------------------------------------------------------------//
 	}
 
+	/**
+	 *
+	 * @param registry
+	 * excluding all resources from access
+	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		//------------------------------------------------------------------------------------------------------------//
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-		//-----------------------------------------------------------------------------------------------------------//
 	}
 
+	/**
+	 * adding suffix and prefix of the view location
+	 * for View Resolver
+	 * @return
+	 */
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
-		/**
-		 * adding suffix and prefix of the view location
-		 * for View Resolver
-		 */
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/view/");
 		resolver.setSuffix(".jsp");

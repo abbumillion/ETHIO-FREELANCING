@@ -3,16 +3,20 @@
 <html>
 <head>
     <title>Customer Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body class="my-login-page">
-<jsp:include page="templates/header.jsp"/>
+<jsp:include page="templates/customerheader.jsp"/>
 <section class="h-100">
     <div class="container h-100">
         <div class="row justify-content-md-center">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="float-left">List of Users</h4>
+                    <h4 class="float-left">Customer</h4>
                     <ul class="float-right">
                         <li>
                             <form action="/searchBox" class="form-inline my-2 my-lg-0 ">
