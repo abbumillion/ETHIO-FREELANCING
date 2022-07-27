@@ -10,34 +10,37 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("userService")
+
 @AllArgsConstructor
+@Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    public  UserRepository userRepository;
     private PasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public User findUserByEmail(String email)
-    {
-        User user = userRepository.findByEmail(email);
-        System.out.println("finding user by email");
-        System.out.println(user);
-        if (user == null)
-        {
-            throw new UsernameNotFoundException(String.format("User with %s doesn't exist!", email));
+    public User findUserByEmail(String email) {
+        User user = new User();
+        try {
+             user = userRepository.findByEmail(email);
+//            System.out.println("finding user by email");
+//            System.out.println(user);
+            if (user == null) {
+                throw new UsernameNotFoundException(String.format("User with %s doesn't exist!", email));
+            }
+            return user;
+        } catch (Exception ex) {
         }
-        return  user;
+        return user;
     }
 
     @Override
-    public void saveUser(User user)
-    {
-        if (user.getId() == null)
-        {
+    public void saveUser(User user) {
+        if (user.getId() == null) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setActive(Boolean.TRUE);
         }
@@ -45,39 +48,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> listUsers(Pageable pageable)
-    {
+    public Page<User> listUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
     @Override
-    public Page<User> searchByTerm(String name, Pageable pageable)
-    {
+    public Page<User> searchByTerm(String name, Pageable pageable) {
         return userRepository.searchByTerm(name, pageable);
     }
 
     @Override
-    public Boolean removeAll()
-    {
+    public Boolean removeAll() {
         userRepository.deleteAll();
         return Boolean.TRUE;
     }
 
     @Override
-    public void removeById(Long id)
-    {
+    public void removeById(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
-    public User findById(Long id)
-    {
+    public User findById(Long id) {
         return userRepository.findById(id).get();
     }
 
     @Override
-    public List<User> searchBy(String keyword, String criteria)
-    {
+    public List<User> searchBy(String keyword, String criteria) {
         if ("fullName".equals(criteria)) {
             return userRepository.findByFullNameIgnoreCaseContaining(keyword);
         } else if ("phoneNumber".equals(criteria)) {
@@ -90,8 +87,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {
-        return userRepository.findByEmail(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        System.out.println(email);
+        return this.findUserByEmail(email);
     }
 }

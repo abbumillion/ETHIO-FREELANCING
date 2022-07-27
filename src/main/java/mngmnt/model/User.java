@@ -19,7 +19,6 @@ import java.util.Collections;
 @Entity
 @Table(name = "USER")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -38,7 +37,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "role")
-    private String roleName;
+    private String role;
 
     @Column(name = "isActive")
     private boolean isActive;

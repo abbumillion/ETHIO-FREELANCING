@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "CUSTOMER")
 public class Customer {
 	/**************************************************************************************
 	 * Description : This is a customer bean.

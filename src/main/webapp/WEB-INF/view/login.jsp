@@ -35,7 +35,7 @@
                             </c:choose>
                             <div class="form-group">
                                 <label for="email">E-Mail Address</label>
-                                <input id="email" type="email" class="form-control" name="username" value="" required
+                                <input id="email" type="email" class="form-control" name="email" value="" required
                                        autofocus>
                             </div>
 

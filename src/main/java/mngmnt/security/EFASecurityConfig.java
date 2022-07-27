@@ -18,19 +18,10 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class EFASecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserServiceImpl userDetailsService;
-    private final PasswordEncoder passwordEncoder;
-//    @Override
-//    public void configure(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity
-//                .csrf().disable()
-//                .authorizeRequests().antMatchers("/register/**").permitAll()
-//                .anyRequest().authenticated().and()
-//                .formLogin();
-//    }
-
+    public final UserServiceImpl userDetailsService;
+    public final PasswordEncoder passwordEncoder;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         /**
@@ -40,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          */
         http
                 .authorizeRequests()
-                .antMatchers("/console/**", "/", "/signup","/register", "/about","/login").permitAll()
+                .antMatchers("/console/**", "/", "/signup","/register", "/about").permitAll()
                 .antMatchers("/jobs", "/myjobs", "/jobapplication", "/home", "/postjob", "/profile","/contactus").authenticated()
                 .antMatchers("/customerhome/**", "/freelancers/**","/postjob/**").hasAuthority(ROLE.CUSTOMER.name())
                 .antMatchers("/freelancerhome/**", "/customers/**","/job/**").hasAuthority(ROLE.FREELANCER.name())
@@ -79,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          * DaoAuthenticationProvider with userDetailsService and
          * Password Encoder
          */
+//        System.out.println(userDetailsService);
         DaoAuthenticationProvider daoAuthenticationProvider =
                 new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder.bCryptPasswordEncoder());

@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "FREELANCER")
 public class Freelancer {
 
 	/**************************************************************************************

@@ -13,6 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "JOBAPPLICATION")
 public class JobApplication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,6 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "ADMIN")
 public class Admin {
 
 	/**************************************************************************************

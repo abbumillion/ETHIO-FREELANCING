@@ -117,44 +117,6 @@
                     </ul>
                 </nav>
             </c:if>
-
-            <%--<nav aria-label="Page navigation example" style="margin:auto;">
-                <ul class="pagination">
-                    <li class="page-item"><a href="/prev/${currentPage-1}" class="page-link pageClickEvent">Previous</a>
-                    </li>
-                    <c:choose>
-                        <c:when test="${totalPages gt maxTraySize}">
-                            <c:set var="upperLimit" value="${totalPages - maxTraySize}"></c:set>
-                            <c:choose>
-                                <c:when test="${upperLimit gt maxTraySize}">
-                                    <c:forEach var="page" begin="${currentPage}" end="${currentPage + maxTraySize - 1}">
-                                        <li class="page-item"><a href="/page/${page}"
-                                                                 class="page-link pageClickEvent">${page}</a></li>
-                                    </c:forEach>
-                                    <li class="page-item"><a href="/next/${currentPage+1}"
-                                                             class="page-link pageClickEvent">Next</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:forEach var="page" begin="${currentPage}" end="${currentPage + upperLimit}">
-                                        <li class="page-item"><a href="/page/${page}"
-                                                                 class="page-link pageClickEvent">${page}</a></li>
-                                    </c:forEach>
-                                    <li class="page-item"><a href="/next/${currentPage+1}"
-                                                             class="page-link pageClickEvent">Next</a></li>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:if test="${upperLimit gt maxTraySize}">
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            <c:forEach var="page" begin="1" end="${totalPages}">
-                                <li class="page-item"><a href="/page/${page}"
-                                                         class="page-link pageClickEvent">${page}</a></li>
-                            </c:forEach>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
-                --%>
             <input type="hidden" name="currentPage" value="${currentPage}" id="currentPageNo">
             <%--</nav>--%>
         </div>

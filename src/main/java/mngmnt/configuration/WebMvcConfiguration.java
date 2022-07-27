@@ -17,9 +17,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		//-----------------login page--------------------------------------------------------------------------------//
 		registry.addViewController("/login").setViewName("login");
 		//-----------------freelancer home page----------------------------------------------------------------------//
-		registry.addViewController("/freelancerhome").setViewName("freelancerhome");
+		registry.addViewController("/freelancer/home").setViewName("freelancerhome");
 		//-----------------customer home page------------------------------------------------------------------------//
-		registry.addViewController("/customerhome").setViewName("customerhome");
+		registry.addViewController("/customer/home").setViewName("customerhome");
 		//-----------------about page--------------------------------------------------------------------------------//
 		registry.addViewController("/about").setViewName("about");
 		//-----------------contact us page---------------------------------------------------------------------------//
@@ -32,12 +32,13 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		registry.addViewController("/job").setViewName("job");
 		//-----------------jobs page---------------------------------------------------------------------------------//
 		registry.addViewController("/freelancer").setViewName("freelancer");
+		registry.addViewController("/freelancer/myjobapplications").setViewName("myjobapplications");
 		//-----------------jobs page---------------------------------------------------------------------------------//
 		registry.addViewController("/customer").setViewName("customer");
 		//-----------------job applications page---------------------------------------------------------------------//
-		registry.addViewController("/jobapplications").setViewName("jobapplications");
+		registry.addViewController("/customer/jobapplications").setViewName("jobapplications");
 		//---------------- my jobs page------------------------------------------------------------------------------//
-		registry.addViewController("/myjobs").setViewName("myjobs");
+		registry.addViewController("/customer/myjobs").setViewName("myjobs");
 		//----------------feedbacks page-----------------------------------------------------------------------------//
 		registry.addViewController("/feedbacks").setViewName("feedbacks");
 		//---------------sign up page--------------------------------------------------------------------------------//
@@ -46,7 +47,6 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		registry.addViewController("/logout").setViewName("logout");
 		//----------------post job-----------------------------------------------------------------------------------//
 		registry.addViewController("/jobform").setViewName("jobform");
-        //registry.addViewController("/login").setViewName("login");
 		//----------------------------------------------------------------------------------------------------------//
 	}
 
